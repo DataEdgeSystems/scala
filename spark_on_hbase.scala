@@ -4,7 +4,6 @@ import org.apache.hadoop.hbase.client._
 import org.apache.spark.SparkContext
 import scala.collection.JavaConversions._
 import org.apache.log4j.{Level, Logger}
-
 /**
   * HBase 1.0.0 新版API, CRUD 的基本操作代码示例
   **/
@@ -61,26 +60,29 @@ object spark_on_hbase {
         val s = new Scan()
         s.addColumn("basic".getBytes,"name".getBytes)
         val scanner = table.getScanner(s)
-
-        try{
-          for(r <- scanner){
-            println("Found row: "+r)
-            println("Found value: "+Bytes.toString(r.getValue("basic".getBytes,"name".getBytes)))
+        try {
+          for (r <- scanner) {
+            println("Found row: " + r)
+            println("Found value: " + Bytes.toString(r.getValue("basic".getBytes, "name".getBytes)))
           }
-        }finally {
-          //确保scanner关闭
-          scanner.close()
+        } catch {
+          case ex:Exception =>{println("scan has exception")}
         }
+
 
         //删除某条数据,操作方式与 Put 类似
         val d = new Delete("id001".getBytes)
         d.addColumn("basic".getBytes,"name".getBytes)
         table.delete(d)
 
-      }finally {
+      }catch {
+        case ex:Exception =>{println("exc")}
+      } finally {
         if(table != null) table.close()
       }
 
+    }catch {
+      case ex:Exception =>{println("exc")}
     }finally {
       conn.close()
     }
