@@ -25,4 +25,7 @@ libraryDependencies += "org.json4s" %% "json4s-jackson" % "3.2.11"
 
 libraryDependencies += "org.apache.spark" % "spark-mllib_2.11" % "2.1.1"
 
+libraryDependencies += "org.apache.kudu" % "kudu-spark2_2.11" % "1.3.0"
+
+libraryDependencies += "org.apache.kudu" % "kudu-client" % "1.3.0" % "test"
 
