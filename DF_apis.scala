@@ -52,7 +52,8 @@ class GGDailyDeleteJob (params: com.ebay.feeds.delete.daily_delete.google_delete
     import spark.implicits._
     val df_1 = gg_us_live_item.alias("gg").join(dw_lstg_item, gg_us_live_item("itemid") === dw_lstg_item("item_id"), "left")
       .filter(dw_lstg_item("item_id").isNull)
-     // .select(gg_us_live_item.columns.map(v => new Column(v)):_*)
+     // .select(gg_us_live_item.columns.map( gg_us_live_item( _ )):_*)
+     // .select(gg_us_live_item.columns.map(v => gg_us_live_item(v)):_*)
       .select($"gg.*")
 //        .select(gg_us_live_item.columns:_*)
     df_1.show()
